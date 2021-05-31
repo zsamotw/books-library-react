@@ -13,13 +13,13 @@ function AuthorCreate() {
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const url = 'http://139.162.147.107:3523/authors';
-  const actionCreator = (a: Author) => (
-    { type: 'ADD_AUTHOR', payload: a }
+  const actionCreatorAdd = (authorToAdd: Author) => (
+    { type: 'ADD_AUTHOR', payload: authorToAdd }
   );
 
-  const handleSave = () => {
+  const handleCreate = () => {
     const body = JSON.stringify({ firstName, lastName });
-    httpPost(url, body, setIsCreating, setError, dispatch, actionCreator);
+    httpPost(url, body, setIsCreating, setError, dispatch, actionCreatorAdd);
     setFirstName('');
     setLastName('');
   };
@@ -44,7 +44,7 @@ function AuthorCreate() {
               />
             </Col>
             <Col>
-              <Button onClick={handleSave}>
+              <Button onClick={handleCreate}>
 
                 {
               isCreating
