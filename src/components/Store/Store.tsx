@@ -2,6 +2,7 @@ import React, { ReactNode, useReducer } from 'react';
 import AppStore from '../../models/store.model';
 import { StoreContext } from './store.context';
 import Author from '../../models/author.model';
+import Publisher from '../../models/publisher.model';
 
 type StoreProps = {
     children: ReactNode
@@ -9,6 +10,7 @@ type StoreProps = {
 
 const initialState: AppStore = {
   authors: [],
+  publishers: [],
   books: [],
 };
 
@@ -40,6 +42,34 @@ function Store({ children }: StoreProps) {
           authors: state
             .authors
             .filter((author) => author.id !== action.payload.id),
+        };
+      case ('ADD_PUBLISHERS'): {
+        const publishers = Object.values(action.payload) as Publisher[];
+        return { ...state, publishers };
+      }
+      case ('ADD_PUBLISHER'):
+        return {
+          ...state,
+          publishers: [...state.publishers, action.payload],
+        };
+      case ('UPDATE_PUBLISHER'):
+        return {
+          ...state,
+          publishers: state
+            .publishers
+            .reduce((result: Publisher[], publisher) => {
+              if (publisher.id === action.payload.id) {
+                return [...result, action.payload];
+              }
+              return [...result, publisher];
+            }, []),
+        };
+      case ('DELETE_PUBLISHER'):
+        return {
+          ...state,
+          publishers: state
+            .publishers
+            .filter((publisher) => publisher.id !== action.payload.id),
         };
       default:
         return state;

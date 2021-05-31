@@ -4,6 +4,7 @@ import { Route } from 'react-router';
 import NavBar from '../NavBar';
 import Books from '../Books';
 import Authors from '../Authors/Authors';
+import Publishers from '../Publishers/Publishers';
 
 export default function RootComponent() {
   return (
@@ -18,6 +19,9 @@ export default function RootComponent() {
           </Route>
           <Route path="/authors">
             <Authors />
+          </Route>
+          <Route path="/publishers">
+            <Publishers />
           </Route>
         </Switch>
       </main>
