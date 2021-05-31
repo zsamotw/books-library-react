@@ -38,7 +38,7 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
           <Form.Label>First Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter first name"
+            placeholder="Type first name..."
             value={firstName}
             onChange={
               (event) => setFirstName(event.target.value)
@@ -50,7 +50,7 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter last name"
+            placeholder="Type last name..."
             value={lastName}
             onChange={
               (event) => setLastName(event.target.value)

@@ -28,17 +28,17 @@ function AuthorCreate() {
     <Row className="my-4">
       <Col>
         <Form>
-          <Form.Row>
+          <Form.Row className="mb-3">
             <Col>
               <Form.Control
-                placeholder="First name"
+                placeholder="Type first name..."
                 value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
               />
             </Col>
             <Col>
               <Form.Control
-                placeholder="Last name"
+                placeholder="Type last name..."
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
               />
