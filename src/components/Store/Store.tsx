@@ -3,6 +3,7 @@ import AppStore from '../../models/store.model';
 import { StoreContext } from './store.context';
 import Author from '../../models/author.model';
 import Publisher from '../../models/publisher.model';
+import Book from '../../models/book.model';
 
 type StoreProps = {
     children: ReactNode
@@ -71,6 +72,10 @@ function Store({ children }: StoreProps) {
             .publishers
             .filter((publisher) => publisher.id !== action.payload.id),
         };
+      case ('ADD_BOOKS'): {
+        const books = Object.values(action.payload) as Book[];
+        return { ...state, books };
+      }
       default:
         return state;
     }
