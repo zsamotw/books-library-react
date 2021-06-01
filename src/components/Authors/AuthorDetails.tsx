@@ -14,15 +14,16 @@ function AuthorDetails({ author }: AuthorDetailProps) {
       <Card.Body>
         <Tabs defaultActiveKey="details" id="uncontrolled-tab-example">
           <Tab eventKey="details" title="Details">
-            <Card.Text className="mt-4">
+            <section className="mt-4">
               <div>{author.firstName}</div>
               <div>{author.lastName}</div>
-            </Card.Text>
+            </section>
             <AuthorDelete author={author} />
           </Tab>
           <Tab eventKey="edit" title="Edit">
-            <Card.Text className="mt-4" />
-            <AuthorUpdate author={author} />
+            <section className="mt-4">
+              <AuthorUpdate author={author} />
+            </section>
           </Tab>
         </Tabs>
       </Card.Body>

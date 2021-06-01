@@ -13,7 +13,7 @@ type AuthorUpdateProps = {
 function AuthorUpdate({ author }: AuthorUpdateProps) {
   const [firstName, setFirstName] = useState(author.firstName);
   const [lastName, setLastName] = useState(author.lastName);
-  const [updateError, setUpdateError] = useState('');
+  const [error, setError] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
 
   const { dispatch } = useContext(StoreContext);
@@ -24,10 +24,11 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
   );
 
   function handleSave() {
-    setUpdateError('');
+    setError('');
     const body = JSON.stringify({ firstName, lastName });
-    httpPut(url, body, setIsUpdating, setUpdateError)
-      .then((data) => dispatch(actionCreatorUpdate(data)));
+    httpPut(url, body, setIsUpdating)
+      .then((data) => dispatch(actionCreatorUpdate(data)))
+      .catch((err) => setError(err.message));
   }
 
   return (
@@ -73,14 +74,14 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
           }
           Save
         </Button>
-        {updateError
+        {error
         && (
           <Alert
             variant="danger"
-            onClick={() => setUpdateError('')}
+            onClick={() => setError('')}
             dismissible
           >
-            {updateError}
+            {error}
           </Alert>
         )}
       </Form>

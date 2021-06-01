@@ -5,7 +5,6 @@ export default function httpPut(
   url: string,
   body: any,
   setIsUpdating: React.Dispatch<React.SetStateAction<boolean>>,
-  setError: React.Dispatch<React.SetStateAction<string>>,
 ) {
   setIsUpdating(true);
 
@@ -17,6 +16,5 @@ export default function httpPut(
     },
   })
     .then(checkError)
-    .catch((err) => setError(err.message))
     .finally(() => setIsUpdating(false));
 }

@@ -18,8 +18,9 @@ export default function AuthorsList() {
   );
 
   useEffect(() => {
-    httpGet(url, setIsFetching, setError)
-      .then((authors) => dispatch(actionCreator(authors)));
+    httpGet(url, setIsFetching)
+      .then((authors) => dispatch(actionCreator(authors)))
+      .catch((err) => setError(err.message));
 
     return () => dispatch(actionCreator([]));
   }, [dispatch]);

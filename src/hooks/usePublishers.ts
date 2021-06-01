@@ -9,8 +9,9 @@ const usePublishers = () => {
   const url = 'http://139.162.147.107:3523/publishers';
 
   useEffect(() => {
-    httpGet(url, setIsFetching, setError)
-      .then((data) => setPublishers(data));
+    httpGet(url, setIsFetching)
+      .then((data) => setPublishers(data))
+      .catch((err) => setError(err.message));
   }, []);
 
   return [publishers, isFetching, error];

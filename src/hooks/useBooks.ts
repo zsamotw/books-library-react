@@ -9,8 +9,9 @@ const useBooks = () => {
   const url = 'http://139.162.147.107:3523/books';
 
   useEffect(() => {
-    httpGet(url, setIsFetching, setError)
-      .then((data) => setBooks(data));
+    httpGet(url, setIsFetching)
+      .then((data) => setBooks(data))
+      .catch((err) => setError(err.message));
   }, []);
 
   return [books, error, isFetching];

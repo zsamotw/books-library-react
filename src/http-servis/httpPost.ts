@@ -5,10 +5,8 @@ export default function httpPost(
   url: string,
   body: any,
   setIsCreating: React.Dispatch<React.SetStateAction<boolean>>,
-  setError: React.Dispatch<React.SetStateAction<string>>,
 ) {
   setIsCreating(true);
-
   return fetch(url, {
     method: 'POST',
     body,
@@ -17,6 +15,5 @@ export default function httpPost(
     },
   })
     .then(checkError)
-    .catch((err) => setError(err.message))
     .finally(() => setIsCreating(false));
 }

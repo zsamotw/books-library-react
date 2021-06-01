@@ -20,8 +20,9 @@ function AuthorCreate() {
   const handleCreate = () => {
     setError('');
     const body = JSON.stringify({ firstName, lastName });
-    httpPost(url, body, setIsCreating, setError)
-      .then((author) => dispatch(actionCreatorAdd(author)));
+    httpPost(url, body, setIsCreating)
+      .then((author) => dispatch(actionCreatorAdd(author)))
+      .catch((err) => setError(err.message));
     setFirstName('');
     setLastName('');
   };

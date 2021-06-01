@@ -13,21 +13,23 @@ type PublisherUpdateProps = {
 function PublisherUpdate({ publisher }: PublisherUpdateProps) {
   const [name, setName] = useState(publisher.name);
   const [establishmentYear, setEstablishmentYear] = useState(publisher.establishmentYear);
-  const [updateError, setUpdateError] = useState('');
+  const [error, setError] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
 
   const { dispatch } = useContext(StoreContext);
 
+  const yearOptions = [...Array(2022).keys()].reverse();
   const url = `http://139.162.147.107:3523/publishers/${publisher.id}`;
   const actionCreatorUpdate = (publisherToUpdate: Publisher) => (
     { type: 'UPDATE_PUBLISHER', payload: publisherToUpdate }
   );
 
   function handleSave() {
-    setUpdateError('');
+    setError('');
     const body = JSON.stringify({ name, establishmentYear });
-    httpPut(url, body, setIsUpdating, setUpdateError)
-      .then((data) => dispatch(actionCreatorUpdate(data)));
+    httpPut(url, body, setIsUpdating)
+      .then((data) => dispatch(actionCreatorUpdate(data)))
+      .catch((err) => setError(err.message));
   }
 
   return (
@@ -45,16 +47,18 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
           />
         </Form.Group>
 
-        <Form.Group controlId="author-last-name">
-          <Form.Label>Last Name</Form.Label>
+        <Form.Group controlId="establishment-year">
+          <Form.Label>Establishment year</Form.Label>
           <Form.Control
-            type="number"
-            placeholder="Type last name..."
+            placeholder="Type establishment year..."
+            as="select"
             value={establishmentYear}
-            onChange={
-              (event) => setEstablishmentYear(Number(event.target.value))
-            }
-          />
+            onChange={(event) => setEstablishmentYear(Number(event.target.value))}
+          >
+            {yearOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </Form.Control>
         </Form.Group>
 
         <Button variant="primary" onClick={handleSave}>
@@ -72,14 +76,14 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
           }
           Save
         </Button>
-        {updateError
+        {error
         && (
           <Alert
             variant="danger"
-            onClick={() => setUpdateError('')}
+            onClick={() => setError('')}
             dismissible
           >
-            {updateError}
+            {error}
           </Alert>
         )}
       </Form>

@@ -14,16 +14,16 @@ function PublisherDetails({ publisher }: PublisherDetailProps) {
       <Card.Body>
         <Tabs defaultActiveKey="details" id="uncontrolled-tab-example">
           <Tab eventKey="details" title="Details">
-            <Card.Text className="mt-4">
+            <section className="mt-4">
               <div>{publisher.name}</div>
               <div>{publisher.establishmentYear}</div>
               <PublisherDelete publisher={publisher} />
-            </Card.Text>
+            </section>
           </Tab>
           <Tab eventKey="edit" title="Edit">
-            <Card.Text className="mt-4">
+            <section className="mt-4">
               <PublisherUpdate publisher={publisher} />
-            </Card.Text>
+            </section>
           </Tab>
         </Tabs>
       </Card.Body>

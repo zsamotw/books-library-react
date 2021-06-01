@@ -9,8 +9,9 @@ const useAuthors = () => {
   const url = 'http://139.162.147.107:3523/authors';
 
   useEffect(() => {
-    httpGet(url, setIsFetching, setError)
-      .then((data) => setAuthors(data));
+    httpGet(url, setIsFetching)
+      .then((data) => setAuthors(data))
+      .catch((err) => setError(err.message));
   }, []);
 
   return [authors, isFetching, error];

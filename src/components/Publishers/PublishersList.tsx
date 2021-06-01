@@ -18,8 +18,9 @@ export default function PublishersList() {
   );
 
   useEffect(() => {
-    httpGet(url, setIsFetching, setError)
-      .then((publishers) => dispatch(actionCreator(publishers)));
+    httpGet(url, setIsFetching)
+      .then((publishers) => dispatch(actionCreator(publishers)))
+      .catch((err) => setError(err.message));
 
     return () => dispatch(actionCreator([]));
   }, [dispatch]);

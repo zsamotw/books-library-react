@@ -7,21 +7,27 @@ import Publisher from '../../models/publisher.model';
 import httpPost from '../../http-servis/httpPost';
 
 function PublisherCreate() {
+  const { dispatch } = useContext(StoreContext);
+
   const [name, setName] = useState('');
   const [establishmentYear, setEstablishmentYear] = useState<number | string>('');
-  const { dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
+
   const url = 'http://139.162.147.107:3523/publishers';
   const actionCreatorAdd = (publisherToToAdd: Publisher) => (
     { type: 'ADD_PUBLISHER', payload: publisherToToAdd }
   );
 
+  const yearOptions = [...Array(2022).keys()].reverse();
+
   const handleCreate = () => {
     setError('');
     const body = JSON.stringify({ name, establishmentYear });
-    httpPost(url, body, setIsCreating, setError)
-      .then((publisher) => dispatch(actionCreatorAdd(publisher)));
+    httpPost(url, body, setIsCreating)
+      .then((publisher) => dispatch(actionCreatorAdd(publisher)))
+      .catch((err) => setError(err.message));
+
     setName('');
     setEstablishmentYear('');
   };
@@ -41,10 +47,14 @@ function PublisherCreate() {
             <Col>
               <Form.Control
                 placeholder="Type establishment year..."
-                type="number"
+                as="select"
                 value={establishmentYear}
                 onChange={(event) => setEstablishmentYear(Number(event.target.value))}
-              />
+              >
+                {yearOptions.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </Form.Control>
             </Col>
             <Col>
               <Button onClick={handleCreate}>

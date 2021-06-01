@@ -11,7 +11,7 @@ type AuthorDeleteProps = {
 }
 
 function AuthorDelete({ author }: AuthorDeleteProps) {
-  const [deleteError, setDeleteError] = useState('');
+  const [error, setError] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
@@ -23,9 +23,11 @@ function AuthorDelete({ author }: AuthorDeleteProps) {
   );
 
   function handleDelete() {
-    setDeleteError('');
-    httpDelete(url, setIsDeleting, setDeleteError)
-      .then((data) => dispatch(actionCreatorDelete(data)));
+    setError('');
+    httpDelete(url, setIsDeleting)
+      .then((data) => dispatch(actionCreatorDelete(data)))
+      .catch((err) => setError(err.message));
+
     setShowDeleteDialog(false);
   }
 
@@ -37,13 +39,13 @@ function AuthorDelete({ author }: AuthorDeleteProps) {
       >
         delete
       </Button>
-      {deleteError && (
+      {error && (
         <Alert
           variant="danger"
-          onClick={() => setDeleteError('')}
+          onClick={() => setError('')}
           dismissible
         >
-          {deleteError}
+          {error}
         </Alert>
       )}
       <Modal show={showDeleteDialog} onHide={() => setShowDeleteDialog(false)}>
