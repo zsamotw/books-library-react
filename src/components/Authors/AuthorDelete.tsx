@@ -23,14 +23,14 @@ function AuthorDelete({ author }: AuthorDeleteProps) {
   );
 
   function handleDelete() {
-    httpDelete(
-      url, setIsDeleting, setDeleteError, dispatch, actionCreatorDelete,
-    );
+    setDeleteError('');
+    httpDelete(url, setIsDeleting, setDeleteError)
+      .then((data) => dispatch(actionCreatorDelete(data)));
     setShowDeleteDialog(false);
   }
 
   return (
-    <div>
+    <div className="mt-4">
       <Button
         className="mb-3"
         onClick={() => setShowDeleteDialog(true)}

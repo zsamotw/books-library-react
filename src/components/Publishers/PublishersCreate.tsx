@@ -18,8 +18,10 @@ function PublisherCreate() {
   );
 
   const handleCreate = () => {
+    setError('');
     const body = JSON.stringify({ name, establishmentYear });
-    httpPost(url, body, setIsCreating, setError, dispatch, actionCreatorAdd);
+    httpPost(url, body, setIsCreating, setError)
+      .then((publisher) => dispatch(actionCreatorAdd(publisher)));
     setName('');
     setEstablishmentYear('');
   };
@@ -64,7 +66,13 @@ function PublisherCreate() {
             </Col>
           </Form.Row>
           {error && (
-            <Alert variant="danger">{error}</Alert>
+            <Alert
+              variant="danger"
+              onClick={() => setError('')}
+              dismissible
+            >
+              {error}
+            </Alert>
           )}
         </Form>
       </Col>

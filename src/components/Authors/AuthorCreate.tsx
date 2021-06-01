@@ -18,8 +18,10 @@ function AuthorCreate() {
   );
 
   const handleCreate = () => {
+    setError('');
     const body = JSON.stringify({ firstName, lastName });
-    httpPost(url, body, setIsCreating, setError, dispatch, actionCreatorAdd);
+    httpPost(url, body, setIsCreating, setError)
+      .then((author) => dispatch(actionCreatorAdd(author)));
     setFirstName('');
     setLastName('');
   };
@@ -63,7 +65,13 @@ function AuthorCreate() {
             </Col>
           </Form.Row>
           {error && (
-            <Alert variant="danger">{error}</Alert>
+            <Alert
+              variant="danger"
+              onClick={() => setError('')}
+              dismissible
+            >
+              {error}
+            </Alert>
           )}
         </Form>
       </Col>

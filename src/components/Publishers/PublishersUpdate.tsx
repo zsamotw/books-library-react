@@ -24,10 +24,10 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
   );
 
   function handleSave() {
+    setUpdateError('');
     const body = JSON.stringify({ name, establishmentYear });
-    httpPut(
-      url, body, setIsUpdating, setUpdateError, dispatch, actionCreatorUpdate,
-    );
+    httpPut(url, body, setIsUpdating, setUpdateError)
+      .then((data) => dispatch(actionCreatorUpdate(data)));
   }
 
   return (

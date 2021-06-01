@@ -24,10 +24,10 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
   );
 
   function handleSave() {
+    setUpdateError('');
     const body = JSON.stringify({ firstName, lastName });
-    httpPut(
-      url, body, setIsUpdating, setUpdateError, dispatch, actionCreatorUpdate,
-    );
+    httpPut(url, body, setIsUpdating, setUpdateError)
+      .then((data) => dispatch(actionCreatorUpdate(data)));
   }
 
   return (

@@ -5,13 +5,13 @@ export default function httpGet(
   url: string,
   setIsFetching: React.Dispatch<React.SetStateAction<boolean>>,
   setError: React.Dispatch<React.SetStateAction<string>>,
-  dispatch: any,
-  actionCreator: any,
+  // dispatch: any,
+  // actionCreator: any,
 ) {
   setIsFetching(true);
-  fetch(url)
+  return fetch(url)
     .then(checkError)
-    .then((data) => dispatch(actionCreator(data)))
+    // .then((data) => dispatch(actionCreator(data)))
     .catch((err) => setError(err.message))
     .finally(() => setIsFetching(false));
 }

@@ -11,18 +11,20 @@ type PublisherDetailProps = {
 function PublisherDetails({ publisher }: PublisherDetailProps) {
   return (
     <>
-      <Card className="p-2 mb-3">
+      <Card className="p-3 mb-3">
         <Card.Body>
           <Tabs defaultActiveKey="details" id="uncontrolled-tab-example">
-            <Tab eventKey="details" title="Details" tabClassName="mb-3">
-              <Card.Text>
+            <Tab eventKey="details" title="Details">
+              <Card.Text className="mt-4">
                 <div>{publisher.name}</div>
                 <div>{publisher.establishmentYear}</div>
                 <PublisherDelete publisher={publisher} />
               </Card.Text>
             </Tab>
-            <Tab eventKey="edit" title="Edit" tabClassName="mb-3">
-              <PublisherUpdate publisher={publisher} />
+            <Tab eventKey="edit" title="Edit">
+              <Card.Text className="mt-4">
+                <PublisherUpdate publisher={publisher} />
+              </Card.Text>
             </Tab>
           </Tabs>
         </Card.Body>

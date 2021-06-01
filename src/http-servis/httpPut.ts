@@ -6,12 +6,12 @@ export default function httpPut(
   body: any,
   setIsUpdating: React.Dispatch<React.SetStateAction<boolean>>,
   setError: React.Dispatch<React.SetStateAction<string>>,
-  dispatch: any,
-  actionCreator: any,
+  // dispatch: any,
+  // actionCreator: any,
 ) {
   setIsUpdating(true);
 
-  fetch(url, {
+  return fetch(url, {
     method: 'PUT',
     body,
     headers: {
@@ -19,7 +19,7 @@ export default function httpPut(
     },
   })
     .then(checkError)
-    .then((data) => dispatch(actionCreator(data)))
+    // .then((data) => dispatch(actionCreator(data)))
     .catch((err) => setError(err.message))
     .finally(() => setIsUpdating(false));
 }

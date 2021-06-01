@@ -6,12 +6,12 @@ export default function httpPost(
   body: any,
   setIsCreating: React.Dispatch<React.SetStateAction<boolean>>,
   setError: React.Dispatch<React.SetStateAction<string>>,
-  dispatch: any,
-  actionCreator: any,
+  // dispatch: any,
+  // actionCreator: any,
 ) {
   setIsCreating(true);
 
-  fetch(url, {
+  return fetch(url, {
     method: 'POST',
     body,
     headers: {
@@ -19,7 +19,7 @@ export default function httpPost(
     },
   })
     .then(checkError)
-    .then((data) => dispatch(actionCreator(data)))
+    // .then((data) => dispatch(actionCreator(data)))
     .catch((err) => setError(err.message))
     .finally(() => setIsCreating(false));
 }
