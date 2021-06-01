@@ -5,8 +5,6 @@ export default function httpDelete(
   url: string,
   setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>,
   setError: React.Dispatch<React.SetStateAction<string>>,
-  // dispatch: any,
-  // actionCreator: any,
 ) {
   setIsDeleting(true);
 
@@ -14,7 +12,6 @@ export default function httpDelete(
     method: 'DELETE',
   })
     .then(checkError)
-    // .then((data) => dispatch(actionCreator(data)))
     .catch((err) => setError(err.message))
     .finally(() => setIsDeleting(false));
 }

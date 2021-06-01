@@ -3,7 +3,7 @@ async function checkErrors(response: any) {
     return response.json();
   }
   const res = await response.json();
-  throw Error(res.message);
+  throw Error(res.message ?? 'Unexpected error');
 }
 
 export default checkErrors;

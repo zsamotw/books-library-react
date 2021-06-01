@@ -20,6 +20,8 @@ export default function PublishersList() {
   useEffect(() => {
     httpGet(url, setIsFetching, setError)
       .then((publishers) => dispatch(actionCreator(publishers)));
+
+    return () => dispatch(actionCreator([]));
   }, [dispatch]);
 
   return (
@@ -33,7 +35,7 @@ export default function PublishersList() {
                 <PublisherDetails publisher={publisher} key={publisher.id} />
               ))}
               {error
-              ?? (
+              && (
                 <Alert variant="danger">{error}</Alert>
               )}
             </Col>
