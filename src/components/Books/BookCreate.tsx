@@ -14,7 +14,7 @@ const Nav = styled.div`
   padding: 10px 0;
 `;
 
-function BooksCreate() {
+function BookCreate() {
   const { dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
@@ -41,9 +41,9 @@ function BooksCreate() {
         <Button variant="outline-secondary" href="/books">Back</Button>
       </Nav>
       <h1>Create Book</h1>
-      <BookForm saveBook={handleCreate} error={error} setError={setError} isSaving={isCreating} />
+      <BookForm saveBook={handleCreate} bookToUpdate={null} error={error} setError={setError} isSaving={isCreating} />
     </Container>
   );
 }
 
-export default BooksCreate;
+export default BookCreate;
