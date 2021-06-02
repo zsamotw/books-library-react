@@ -13,7 +13,7 @@ export default function Books() {
   return (
     <Container>
       <Nav>
-        <Button href="books/create">Create</Button>
+        <Button variant="outline-success" href="books/create">Create book</Button>
       </Nav>
       <BooksList />
     </Container>

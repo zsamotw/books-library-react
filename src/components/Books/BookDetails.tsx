@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import Book from '../../models/book.model';
+import BookDelete from './BookDelete';
 
 type BookDetailsProps = {
   book: Book;
@@ -15,6 +16,7 @@ function BookDetails({ book }: BookDetailsProps) {
         <Card.Text>{`${book.author?.firstName} ${book.author?.lastName}`}</Card.Text>
         <Card.Text>{book.publisher?.name}</Card.Text>
         <Card.Text>{book.publishmentYear}</Card.Text>
+        <BookDelete book={book} />
       </Card.Body>
     </Card>
   );

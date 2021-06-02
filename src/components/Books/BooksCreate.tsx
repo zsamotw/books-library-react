@@ -6,6 +6,7 @@ import BookForm from './BookForm';
 import Book from '../../models/book.model';
 import { StoreContext } from '../Store';
 import httpPost from '../../http-servis/httpPost';
+import baseUrl from '../../http-servis/base-url';
 
 const Nav = styled.div`
   display: flex;
@@ -17,7 +18,8 @@ function BooksCreate() {
   const { dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const url = 'http://139.162.147.107:3523/books';
+
+  const url = `${baseUrl}/books`;
   const actionCreatorAdd = (bookToAdd: Book) => (
     { type: 'ADD_BOOK', payload: bookToAdd }
   );
@@ -25,8 +27,7 @@ function BooksCreate() {
 
   const handleCreate = (book: Book) => {
     setError('');
-    const body = JSON.stringify(book);
-    httpPost(url, body, setIsCreating)
+    httpPost(url, book, setIsCreating)
       .then((author) => {
         dispatch(actionCreatorAdd(author));
         history.push('/books');
@@ -37,7 +38,7 @@ function BooksCreate() {
   return (
     <Container>
       <Nav>
-        <Button href="/books">Back</Button>
+        <Button variant="outline-secondary" href="/books">Back</Button>
       </Nav>
       <h1>Create Book</h1>
       <BookForm saveBook={handleCreate} error={error} setError={setError} isSaving={isCreating} />
