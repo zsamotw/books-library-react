@@ -10,13 +10,14 @@ import Book from '../../models/book.model';
 
 type BookFormProps = {
   saveBook: any,
+  bookToUpdate: Book | null,
   error: string,
   isSaving: boolean,
   setError: React.Dispatch<React.SetStateAction<string>>
 }
 
 function BookForm({
-  saveBook, error, isSaving, setError,
+  saveBook, bookToUpdate, error, isSaving, setError,
 }: BookFormProps) {
   const [authorOptions, setAuthorOptions] = useState<Author[]>([]);
   const [publisherOptions, setPublisherOptions] = useState<Publisher[]>([]);
@@ -24,6 +25,12 @@ function BookForm({
   const [authors, isFetchingAuthors] = useAuthors();
   const [publishers, isFetchingPublishers] = usePublishers();
   const yearOptions = [...Array(2022).keys()].reverse();
+
+  useEffect(() => {
+    if (bookToUpdate) {
+      setBook(bookToUpdate);
+    }
+  }, [bookToUpdate]);
 
   useEffect(() => {
     const opts = Object.values(authors) as Author[];

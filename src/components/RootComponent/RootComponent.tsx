@@ -5,7 +5,8 @@ import NavBar from '../NavBar';
 import Books from '../Books';
 import Authors from '../Authors/Authors';
 import Publishers from '../Publishers/Publishers';
-import BooksCreate from '../Books/BooksCreate';
+import BookCreate from '../Books/BookCreate';
+import BookUpdate from '../Books/BookUpdate';
 
 export default function RootComponent() {
   return (
@@ -20,7 +21,10 @@ export default function RootComponent() {
             <Books />
           </Route>
           <Route exact path="/books/create">
-            <BooksCreate />
+            <BookCreate />
+          </Route>
+          <Route exact path="/books/edit/:id">
+            <BookUpdate />
           </Route>
           <Route exact path="/authors">
             <Authors />

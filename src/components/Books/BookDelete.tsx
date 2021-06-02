@@ -33,8 +33,9 @@ function BookDelete({ book }: BookDeleteProps) {
   }
 
   return (
-    <div className="mt-4">
+    <div>
       <Button
+        className="ml-3"
         variant="outline-danger"
         size="sm"
         onClick={() => setShowDeleteDialog(true)}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, ButtonGroup, Card } from 'react-bootstrap';
 import Book from '../../models/book.model';
 import BookDelete from './BookDelete';
 
@@ -16,7 +16,10 @@ function BookDetails({ book }: BookDetailsProps) {
         <Card.Text>{`${book.author?.firstName} ${book.author?.lastName}`}</Card.Text>
         <Card.Text>{book.publisher?.name}</Card.Text>
         <Card.Text>{book.publishmentYear}</Card.Text>
-        <BookDelete book={book} />
+        <ButtonGroup size="sm" className="mt-4">
+          <Button variant="outline-primary" size="sm" href={`/books/edit/${book.id}`}>Update</Button>
+          <BookDelete book={book} />
+        </ButtonGroup>
       </Card.Body>
     </Card>
   );
