@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import {
   Alert, Button, Modal, Spinner,
 } from 'react-bootstrap';
-import httpDelete from '../../http-servis/httpDelete';
+import httpDelete from '../../http-service/httpDelete';
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
-import baseUrl from '../../http-servis/base-url';
+import baseUrl from '../../http-service/base-url';
 
 type PublisherDeleteProps = {
   publisher: Publisher

@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import BookForm from './BookForm';
 import Book from '../../models/book.model';
 import { StoreContext } from '../Store';
-import httpPost from '../../http-servis/httpPost';
-import baseUrl from '../../http-servis/base-url';
+import httpPost from '../../http-service/httpPost';
+import baseUrl from '../../http-service/base-url';
 
 const Nav = styled.div`
   display: flex;

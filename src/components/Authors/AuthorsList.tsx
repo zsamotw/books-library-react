@@ -4,9 +4,9 @@ import {
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
 import AuthorDetails from './AuthorDetails';
-import httpGet from '../../http-servis/httpGet';
+import httpGet from '../../http-service/httpGet';
 import Author from '../../models/author.model';
-import baseUrl from '../../http-servis/base-url';
+import baseUrl from '../../http-service/base-url';
 
 export default function AuthorsList() {
   const { state, dispatch } = useContext(StoreContext);

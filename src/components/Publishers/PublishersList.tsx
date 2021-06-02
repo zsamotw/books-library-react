@@ -3,10 +3,10 @@ import {
   Alert, Col, Row, Spinner,
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
-import httpGet from '../../http-servis/httpGet';
+import httpGet from '../../http-service/httpGet';
 import Publisher from '../../models/publisher.model';
 import PublisherDetails from './PublishersDetails';
-import baseUrl from '../../http-servis/base-url';
+import baseUrl from '../../http-service/base-url';
 
 export default function PublishersList() {
   const { state, dispatch } = useContext(StoreContext);

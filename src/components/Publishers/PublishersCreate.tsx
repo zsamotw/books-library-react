@@ -4,8 +4,8 @@ import {
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
-import httpPost from '../../http-servis/httpPost';
-import baseUrl from '../../http-servis/base-url';
+import httpPost from '../../http-service/httpPost';
+import baseUrl from '../../http-service/base-url';
 
 function PublisherCreate() {
   const { dispatch } = useContext(StoreContext);

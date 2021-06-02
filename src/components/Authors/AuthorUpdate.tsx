@@ -3,9 +3,9 @@ import {
   Alert, Button, Form, Spinner,
 } from 'react-bootstrap';
 import Author from '../../models/author.model';
-import httpPut from '../../http-servis/httpPut';
+import httpPut from '../../http-service/httpPut';
 import { StoreContext } from '../Store';
-import baseUrl from '../../http-servis/base-url';
+import baseUrl from '../../http-service/base-url';
 
 type AuthorUpdateProps = {
   author: Author

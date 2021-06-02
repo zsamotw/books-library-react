@@ -4,8 +4,8 @@ import {
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
 import Author from '../../models/author.model';
-import httpPost from '../../http-servis/httpPost';
-import baseUrl from '../../http-servis/base-url';
+import httpPost from '../../http-service/httpPost';
+import baseUrl from '../../http-service/base-url';
 
 function AuthorCreate() {
   const [firstName, setFirstName] = useState('');

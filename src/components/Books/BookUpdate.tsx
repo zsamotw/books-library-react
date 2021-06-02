@@ -3,11 +3,11 @@ import { useHistory, useParams } from 'react-router';
 import { Button, Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import { StoreContext } from '../Store';
-import baseUrl from '../../http-servis/base-url';
+import baseUrl from '../../http-service/base-url';
 import Book from '../../models/book.model';
 import BookForm from './BookForm';
-import httpGet from '../../http-servis/httpGet';
-import httpPut from '../../http-servis/httpPut';
+import httpGet from '../../http-service/httpGet';
+import httpPut from '../../http-service/httpPut';
 
 type BookParams = {
   id: string

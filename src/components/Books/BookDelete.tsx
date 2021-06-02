@@ -3,8 +3,8 @@ import {
   Alert, Button, Modal, Spinner,
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
-import baseUrl from '../../http-servis/base-url';
-import httpDelete from '../../http-servis/httpDelete';
+import baseUrl from '../../http-service/base-url';
+import httpDelete from '../../http-service/httpDelete';
 import Book from '../../models/book.model';
 
 type BookDeleteProps = {

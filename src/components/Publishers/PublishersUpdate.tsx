@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import {
   Alert, Button, Form, Spinner,
 } from 'react-bootstrap';
-import httpPut from '../../http-servis/httpPut';
+import httpPut from '../../http-service/httpPut';
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
-import baseUrl from '../../http-servis/base-url';
+import baseUrl from '../../http-service/base-url';
 
 type PublisherUpdateProps = {
   publisher: Publisher

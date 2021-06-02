@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import httpGet from '../http-servis/httpGet';
-import baseUrl from '../http-servis/base-url';
+import httpGet from '../http-service/httpGet';
+import baseUrl from '../http-service/base-url';
 
 const useAuthors = () => {
   const [authors, setAuthors] = useState({} as any);
