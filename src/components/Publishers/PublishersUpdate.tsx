@@ -37,7 +37,7 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
     <div>
       <Form>
         <Form.Group controlId="author-first-name">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Type first name..."

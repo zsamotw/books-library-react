@@ -37,7 +37,7 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
 
       <Form>
         <Form.Group controlId="author-first-name">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label>First name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Type first name..."
@@ -49,7 +49,7 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
         </Form.Group>
 
         <Form.Group controlId="author-last-name">
-          <Form.Label>Last Name</Form.Label>
+          <Form.Label>Last name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Type last name..."
