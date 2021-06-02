@@ -7,8 +7,8 @@ export default function NavBar() {
       <Navbar.Brand>Library</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/">Books</Nav.Link>
-        <Nav.Link href="authors">Authors</Nav.Link>
-        <Nav.Link href="publishers">Publishers</Nav.Link>
+        <Nav.Link href="/authors">Authors</Nav.Link>
+        <Nav.Link href="/publishers">Publishers</Nav.Link>
       </Nav>
     </Navbar>
   );

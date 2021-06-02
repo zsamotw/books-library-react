@@ -76,6 +76,11 @@ function Store({ children }: StoreProps) {
         const books = Object.values(action.payload) as Book[];
         return { ...state, books };
       }
+      case ('ADD_BOOK'):
+        return {
+          ...state,
+          books: [...state.books, action.payload],
+        };
       default:
         return state;
     }

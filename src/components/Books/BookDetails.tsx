@@ -12,8 +12,7 @@ function BookDetails({ book }: BookDetailsProps) {
       <Card.Body>
         <Card.Title>{book.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{book.isbn}</Card.Subtitle>
-        <Card.Text>{book.author?.firstName}</Card.Text>
-        <Card.Text>{book.author?.lastName}</Card.Text>
+        <Card.Text>{`${book.author?.firstName} ${book.author?.lastName}`}</Card.Text>
         <Card.Text>{book.publisher?.name}</Card.Text>
         <Card.Text>{book.publishmentYear}</Card.Text>
       </Card.Body>
