@@ -6,18 +6,19 @@ import { StoreContext } from '../Store';
 import httpGet from '../../http-servis/httpGet';
 import Publisher from '../../models/publisher.model';
 import PublisherDetails from './PublishersDetails';
+import baseUrl from '../../http-servis/base-url';
 
 export default function PublishersList() {
   const { state, dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isFetching, setIsFetching] = useState(false);
 
-  const url = 'http://139.162.147.107:3523/publishers';
-  const actionCreator = (publishers: Publisher[]) => (
-    { type: 'ADD_PUBLISHERS', payload: publishers }
-  );
-
   useEffect(() => {
+    const url = `${baseUrl}/publishers`;
+    const actionCreator = (publishers: Publisher[]) => (
+      { type: 'ADD_PUBLISHERS', payload: publishers }
+    );
+
     httpGet(url, setIsFetching)
       .then((publishers) => dispatch(actionCreator(publishers)))
       .catch((err) => setError(err.message));

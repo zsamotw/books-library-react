@@ -5,6 +5,7 @@ import {
 import Author from '../../models/author.model';
 import httpPut from '../../http-servis/httpPut';
 import { StoreContext } from '../Store';
+import baseUrl from '../../http-servis/base-url';
 
 type AuthorUpdateProps = {
   author: Author
@@ -18,14 +19,14 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
 
   const { dispatch } = useContext(StoreContext);
 
-  const url = `http://139.162.147.107:3523/authors/${author.id}`;
+  const url = `${baseUrl}/authors/${author.id}`;
   const actionCreatorUpdate = (authorToUpdate: Author) => (
     { type: 'UPDATE_AUTHOR', payload: authorToUpdate }
   );
 
   function handleSave() {
     setError('');
-    const body = JSON.stringify({ firstName, lastName });
+    const body = { firstName, lastName };
     httpPut(url, body, setIsUpdating)
       .then((data) => dispatch(actionCreatorUpdate(data)))
       .catch((err) => setError(err.message));

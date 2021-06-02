@@ -5,6 +5,7 @@ import {
 import httpPut from '../../http-servis/httpPut';
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
+import baseUrl from '../../http-servis/base-url';
 
 type PublisherUpdateProps = {
   publisher: Publisher
@@ -19,14 +20,14 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
   const { dispatch } = useContext(StoreContext);
 
   const yearOptions = [...Array(2022).keys()].reverse();
-  const url = `http://139.162.147.107:3523/publishers/${publisher.id}`;
+  const url = `${baseUrl}/publishers/${publisher.id}`;
   const actionCreatorUpdate = (publisherToUpdate: Publisher) => (
     { type: 'UPDATE_PUBLISHER', payload: publisherToUpdate }
   );
 
   function handleSave() {
     setError('');
-    const body = JSON.stringify({ name, establishmentYear });
+    const body = { name, establishmentYear };
     httpPut(url, body, setIsUpdating)
       .then((data) => dispatch(actionCreatorUpdate(data)))
       .catch((err) => setError(err.message));

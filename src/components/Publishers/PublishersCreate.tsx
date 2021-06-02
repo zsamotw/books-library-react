@@ -5,6 +5,7 @@ import {
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
 import httpPost from '../../http-servis/httpPost';
+import baseUrl from '../../http-servis/base-url';
 
 function PublisherCreate() {
   const { dispatch } = useContext(StoreContext);
@@ -14,7 +15,7 @@ function PublisherCreate() {
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
 
-  const url = 'http://139.162.147.107:3523/publishers';
+  const url = `${baseUrl}/publishers`;
   const actionCreatorAdd = (publisherToToAdd: Publisher) => (
     { type: 'ADD_PUBLISHER', payload: publisherToToAdd }
   );
@@ -23,7 +24,7 @@ function PublisherCreate() {
 
   const handleCreate = () => {
     setError('');
-    const body = JSON.stringify({ name, establishmentYear });
+    const body = { name, establishmentYear };
     httpPost(url, body, setIsCreating)
       .then((publisher) => dispatch(actionCreatorAdd(publisher)))
       .catch((err) => setError(err.message));
@@ -57,7 +58,7 @@ function PublisherCreate() {
               </Form.Control>
             </Col>
             <Col>
-              <Button onClick={handleCreate}>
+              <Button variant="outline-success" onClick={handleCreate}>
 
                 {
                   isCreating
@@ -71,7 +72,7 @@ function PublisherCreate() {
                     />
                   )
                 }
-                Create Publisher
+                Create publisher
               </Button>
             </Col>
           </Form.Row>

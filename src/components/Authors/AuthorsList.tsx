@@ -6,18 +6,19 @@ import { StoreContext } from '../Store';
 import AuthorDetails from './AuthorDetails';
 import httpGet from '../../http-servis/httpGet';
 import Author from '../../models/author.model';
+import baseUrl from '../../http-servis/base-url';
 
 export default function AuthorsList() {
   const { state, dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isFetching, setIsFetching] = useState(false);
 
-  const url = 'http://139.162.147.107:3523/authors';
-  const actionCreator = (authors: Author[]) => (
-    { type: 'ADD_AUTHORS', payload: authors }
-  );
-
   useEffect(() => {
+    const url = `${baseUrl}/authors`;
+    const actionCreator = (authors: Author[]) => (
+      { type: 'ADD_AUTHORS', payload: authors }
+    );
+
     httpGet(url, setIsFetching)
       .then((authors) => dispatch(actionCreator(authors)))
       .catch((err) => setError(err.message));

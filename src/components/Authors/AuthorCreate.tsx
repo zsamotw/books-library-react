@@ -5,6 +5,7 @@ import {
 import { StoreContext } from '../Store';
 import Author from '../../models/author.model';
 import httpPost from '../../http-servis/httpPost';
+import baseUrl from '../../http-servis/base-url';
 
 function AuthorCreate() {
   const [firstName, setFirstName] = useState('');
@@ -12,14 +13,14 @@ function AuthorCreate() {
   const { dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const url = 'http://139.162.147.107:3523/authors';
+  const url = `${baseUrl}/authors`;
   const actionCreatorAdd = (authorToAdd: Author) => (
     { type: 'ADD_AUTHOR', payload: authorToAdd }
   );
 
   const handleCreate = () => {
     setError('');
-    const body = JSON.stringify({ firstName, lastName });
+    const body = { firstName, lastName };
     httpPost(url, body, setIsCreating)
       .then((author) => dispatch(actionCreatorAdd(author)))
       .catch((err) => setError(err.message));
@@ -47,7 +48,7 @@ function AuthorCreate() {
               />
             </Col>
             <Col>
-              <Button onClick={handleCreate}>
+              <Button variant="outline-success" onClick={handleCreate}>
 
                 {
               isCreating
@@ -61,7 +62,7 @@ function AuthorCreate() {
                 />
               )
             }
-                Create Author
+                Create author
               </Button>
             </Col>
           </Form.Row>

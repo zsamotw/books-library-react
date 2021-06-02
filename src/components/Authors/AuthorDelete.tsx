@@ -5,6 +5,7 @@ import {
 import httpDelete from '../../http-servis/httpDelete';
 import Author from '../../models/author.model';
 import { StoreContext } from '../Store';
+import baseUrl from '../../http-servis/base-url';
 
 type AuthorDeleteProps = {
   author: Author
@@ -17,7 +18,7 @@ function AuthorDelete({ author }: AuthorDeleteProps) {
 
   const { dispatch } = useContext(StoreContext);
 
-  const url = `http://139.162.147.107:3523/authors/${author.id}`;
+  const url = `${baseUrl}/authors/${author.id}`;
   const actionCreatorDelete = (authorToDelete: Author) => (
     { type: 'DELETE_AUTHOR', payload: authorToDelete }
   );
@@ -34,7 +35,8 @@ function AuthorDelete({ author }: AuthorDeleteProps) {
   return (
     <div className="mt-4">
       <Button
-        className="mb-3"
+        variant="outline-danger"
+        size="sm"
         onClick={() => setShowDeleteDialog(true)}
       >
         delete

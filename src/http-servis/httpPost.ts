@@ -9,7 +9,7 @@ export default function httpPost(
   setIsCreating(true);
   return fetch(url, {
     method: 'POST',
-    body,
+    body: JSON.stringify(body),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },

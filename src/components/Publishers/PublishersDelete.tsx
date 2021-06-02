@@ -5,6 +5,7 @@ import {
 import httpDelete from '../../http-servis/httpDelete';
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
+import baseUrl from '../../http-servis/base-url';
 
 type PublisherDeleteProps = {
   publisher: Publisher
@@ -17,7 +18,7 @@ function PublisherDelete({ publisher }: PublisherDeleteProps) {
 
   const { dispatch } = useContext(StoreContext);
 
-  const url = `http://139.162.147.107:3523/publishers/${publisher.id}`;
+  const url = `${baseUrl}/publishers/${publisher.id}`;
   const actionCreatorDelete = (publisherToDelete: Publisher) => (
     { type: 'DELETE_PUBLISHER', payload: publisherToDelete }
   );
@@ -33,7 +34,8 @@ function PublisherDelete({ publisher }: PublisherDeleteProps) {
   return (
     <div className="mt-4">
       <Button
-        className="mb-3"
+        variant="outline-danger"
+        size="sm"
         onClick={() => setShowDeleteDialog(true)}
       >
         delete

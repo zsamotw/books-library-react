@@ -10,7 +10,7 @@ export default function httpPut(
 
   return fetch(url, {
     method: 'PUT',
-    body,
+    body: JSON.stringify(body),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
