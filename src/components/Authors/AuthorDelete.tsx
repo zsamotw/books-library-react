@@ -18,13 +18,14 @@ function AuthorDelete({ author }: AuthorDeleteProps) {
 
   const { dispatch } = useContext(StoreContext);
 
-  const url = `${baseUrl}/authors/${author.id}`;
-  const actionCreatorDelete = (authorToDelete: Author) => (
-    { type: 'DELETE_AUTHOR', payload: authorToDelete }
-  );
-
   function handleDelete() {
     setError('');
+
+    const url = `${baseUrl}/authors/${author.id}`;
+    const actionCreatorDelete = (authorToDelete: Author) => (
+      { type: 'DELETE_AUTHOR', payload: authorToDelete }
+    );
+
     httpDelete(url, setIsDeleting)
       .then((data) => dispatch(actionCreatorDelete(data)))
       .catch((err) => setError(err.message));

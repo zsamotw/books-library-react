@@ -18,13 +18,14 @@ function BookDelete({ book }: BookDeleteProps) {
 
   const { dispatch } = useContext(StoreContext);
 
-  const url = `${baseUrl}/books/${book.id}`;
-  const actionCreatorDelete = (bookToDelete: Book) => (
-    { type: 'DELETE_BOOK', payload: bookToDelete }
-  );
-
   function handleDelete() {
     setError('');
+
+    const url = `${baseUrl}/books/${book.id}`;
+    const actionCreatorDelete = (bookToDelete: Book) => (
+      { type: 'DELETE_BOOK', payload: bookToDelete }
+    );
+
     httpDelete(url, setIsDeleting)
       .then((data) => dispatch(actionCreatorDelete(data)))
       .catch((err) => setError(err.message));

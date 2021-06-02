@@ -11,15 +11,15 @@ import useBooks from '../../hooks/useBooks';
 
 function BooksList() {
   const { state, dispatch } = useContext(StoreContext);
-  const actionCreator = (books: Book[]) => (
-    { type: 'ADD_BOOKS', payload: books }
-  );
 
   const [authors, isFetchingAuthors, authorsError] = useAuthors();
   const [publishers, isFetchingPublishers, publishersError] = usePublishers();
   const [books, isFetchingBooks, booksError] = useBooks();
 
   useEffect(() => {
+    const actionCreatorAdd = (booksToAdd: Book[]) => (
+      { type: 'ADD_BOOKS', payload: booksToAdd }
+    );
     const booksList = Object.values(books) as Book[];
     const fullDataBooks = booksList.map((book: Book) => {
       const publisher = publishers[String(book.publisherId)];
@@ -27,9 +27,9 @@ function BooksList() {
       return { ...book, author, publisher };
     });
 
-    dispatch(actionCreator(fullDataBooks));
+    dispatch(actionCreatorAdd(fullDataBooks));
 
-    return () => dispatch(actionCreator([]));
+    return () => dispatch(actionCreatorAdd([]));
   }, [dispatch, books, publishers, authors]);
 
   return (

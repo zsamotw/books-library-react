@@ -18,15 +18,16 @@ function BookCreate() {
   const { dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-
-  const url = `${baseUrl}/books`;
-  const actionCreatorAdd = (bookToAdd: Book) => (
-    { type: 'ADD_BOOK', payload: bookToAdd }
-  );
   const history = useHistory();
 
   const handleCreate = (book: Book) => {
     setError('');
+
+    const url = `${baseUrl}/books`;
+    const actionCreatorAdd = (bookToAdd: Book) => (
+      { type: 'ADD_BOOK', payload: bookToAdd }
+    );
+
     httpPost(url, book, setIsCreating)
       .then((author) => {
         dispatch(actionCreatorAdd(author));

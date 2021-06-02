@@ -20,13 +20,15 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
   const { dispatch } = useContext(StoreContext);
 
   const yearOptions = [...Array(2022).keys()].reverse();
-  const url = `${baseUrl}/publishers/${publisher.id}`;
-  const actionCreatorUpdate = (publisherToUpdate: Publisher) => (
-    { type: 'UPDATE_PUBLISHER', payload: publisherToUpdate }
-  );
 
   function handleSave() {
     setError('');
+
+    const url = `${baseUrl}/publishers/${publisher.id}`;
+    const actionCreatorUpdate = (publisherToUpdate: Publisher) => (
+      { type: 'UPDATE_PUBLISHER', payload: publisherToUpdate }
+    );
+
     const body = { name, establishmentYear };
     httpPut(url, body, setIsUpdating)
       .then((data) => dispatch(actionCreatorUpdate(data)))

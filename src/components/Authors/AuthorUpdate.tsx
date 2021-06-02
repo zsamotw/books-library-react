@@ -19,14 +19,15 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
 
   const { dispatch } = useContext(StoreContext);
 
-  const url = `${baseUrl}/authors/${author.id}`;
-  const actionCreatorUpdate = (authorToUpdate: Author) => (
-    { type: 'UPDATE_AUTHOR', payload: authorToUpdate }
-  );
-
   function handleSave() {
     setError('');
+
+    const url = `${baseUrl}/authors/${author.id}`;
+    const actionCreatorUpdate = (authorToUpdate: Author) => (
+      { type: 'UPDATE_AUTHOR', payload: authorToUpdate }
+    );
     const body = { firstName, lastName };
+
     httpPut(url, body, setIsUpdating)
       .then((data) => dispatch(actionCreatorUpdate(data)))
       .catch((err) => setError(err.message));

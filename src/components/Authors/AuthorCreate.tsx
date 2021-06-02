@@ -13,14 +13,16 @@ function AuthorCreate() {
   const { dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const url = `${baseUrl}/authors`;
-  const actionCreatorAdd = (authorToAdd: Author) => (
-    { type: 'ADD_AUTHOR', payload: authorToAdd }
-  );
 
   const handleCreate = () => {
     setError('');
+
+    const url = `${baseUrl}/authors`;
+    const actionCreatorAdd = (authorToAdd: Author) => (
+      { type: 'ADD_AUTHOR', payload: authorToAdd }
+    );
     const body = { firstName, lastName };
+
     httpPost(url, body, setIsCreating)
       .then((author) => dispatch(actionCreatorAdd(author)))
       .catch((err) => setError(err.message));

@@ -18,13 +18,14 @@ function PublisherDelete({ publisher }: PublisherDeleteProps) {
 
   const { dispatch } = useContext(StoreContext);
 
-  const url = `${baseUrl}/publishers/${publisher.id}`;
-  const actionCreatorDelete = (publisherToDelete: Publisher) => (
-    { type: 'DELETE_PUBLISHER', payload: publisherToDelete }
-  );
-
   function handleDelete() {
     setError('');
+
+    const url = `${baseUrl}/publishers/${publisher.id}`;
+    const actionCreatorDelete = (publisherToDelete: Publisher) => (
+      { type: 'DELETE_PUBLISHER', payload: publisherToDelete }
+    );
+
     httpDelete(url, setIsDeleting)
       .then((data) => dispatch(actionCreatorDelete(data)))
       .catch((err) => setError(err.message));

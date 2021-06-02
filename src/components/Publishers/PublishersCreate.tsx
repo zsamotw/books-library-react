@@ -15,15 +15,16 @@ function PublisherCreate() {
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
 
-  const url = `${baseUrl}/publishers`;
-  const actionCreatorAdd = (publisherToToAdd: Publisher) => (
-    { type: 'ADD_PUBLISHER', payload: publisherToToAdd }
-  );
-
   const yearOptions = [...Array(2022).keys()].reverse();
 
   const handleCreate = () => {
     setError('');
+
+    const url = `${baseUrl}/publishers`;
+    const actionCreatorAdd = (publisherToToAdd: Publisher) => (
+      { type: 'ADD_PUBLISHER', payload: publisherToToAdd }
+    );
+
     const body = { name, establishmentYear };
     httpPost(url, body, setIsCreating)
       .then((publisher) => dispatch(actionCreatorAdd(publisher)))
