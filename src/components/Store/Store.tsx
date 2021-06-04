@@ -81,6 +81,18 @@ function Store({ children }: StoreProps) {
           ...state,
           books: [...state.books, action.payload],
         };
+      case ('UPDATE_BOOK'):
+        return {
+          ...state,
+          books: state
+            .books
+            .reduce((result: Book[], book) => {
+              if (book.id === action.payload.id) {
+                return [...result, action.payload];
+              }
+              return [...result, book];
+            }, []),
+        };
       case ('DELETE_BOOK'):
         return {
           ...state,
