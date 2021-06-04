@@ -53,6 +53,7 @@ function PublisherCreate() {
                 value={establishmentYear}
                 onChange={(event) => setEstablishmentYear(Number(event.target.value))}
               >
+                <option value="">Select establishmentYear year...</option>
                 {yearOptions.map((option) => (
                   <option key={option} value={option}>{option}</option>
                 ))}
