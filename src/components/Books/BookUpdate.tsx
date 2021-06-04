@@ -9,7 +9,7 @@ import BookForm from './BookForm';
 import httpGet from '../../http-service/httpGet';
 import httpPut from '../../http-service/httpPut';
 
-type BookParams = {
+type BookProps = {
   id: string
 };
 
@@ -28,14 +28,14 @@ function BookUpdate() {
   const { dispatch } = useContext(StoreContext);
 
   const history = useHistory();
-  const { id } = useParams<BookParams>();
+  const { id } = useParams<BookProps>();
 
   useEffect(() => {
     const bookUrl = `${baseUrl}/books/${id}`;
     httpGet(bookUrl, setIsFetching)
       .then((data) => setBook(data))
       .catch((err) => setError(err.message));
-  }, []);
+  }, [id]);
 
   const handleUpdate = (bookToUpdate: Book) => {
     setError('');
@@ -60,7 +60,13 @@ function BookUpdate() {
       <h1>Update book</h1>
       {
         isFetching || (
-          <BookForm saveBook={handleUpdate} bookToUpdate={book} error={error} setError={setError} isSaving={isCreating} />
+          <BookForm
+            saveBook={handleUpdate}
+            bookToUpdate={book}
+            error={error}
+            setError={setError}
+            isSaving={isCreating}
+          />
         )
       }
     </Container>
