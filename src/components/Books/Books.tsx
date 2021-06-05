@@ -1,20 +1,15 @@
 import React from 'react';
 import { Button, Container } from 'react-bootstrap';
-import styled from 'styled-components';
+import { Navigation } from '../shared/Navigation';
 import BooksList from './BooksList';
-
-const Nav = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px 0;
-`;
 
 export default function Books() {
   return (
     <Container>
-      <Nav>
+      <Navigation>
         <Button variant="outline-success" href="books/create">Create book</Button>
-      </Nav>
+      </Navigation>
+      <h1>Books</h1>
       <BooksList />
     </Container>
   );

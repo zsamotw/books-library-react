@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { Button, Container } from 'react-bootstrap';
-import styled from 'styled-components';
 import { StoreContext } from '../Store';
 import baseUrl from '../../http-service/base-url';
 import Book from '../../models/book.model';
@@ -9,16 +8,11 @@ import BookForm from './BookForm';
 import httpGet from '../../http-service/httpGet';
 import httpPut from '../../http-service/httpPut';
 import { actionCreators } from '../Store/action.creators';
+import { Navigation } from '../shared/Navigation';
 
 type BookProps = {
   id: string
 };
-
-const Nav = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px 0;
-`;
 
 function BookUpdate() {
   const [book, setBook] = useState<Book>({} as Book);
@@ -52,9 +46,9 @@ function BookUpdate() {
 
   return (
     <Container>
-      <Nav>
+      <Navigation>
         <Button variant="outline-secondary" href="/books">Back</Button>
-      </Nav>
+      </Navigation>
       <h1>Update book</h1>
       {
         isFetching || (
