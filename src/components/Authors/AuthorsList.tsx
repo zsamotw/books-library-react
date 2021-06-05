@@ -5,8 +5,8 @@ import {
 import { StoreContext } from '../Store';
 import AuthorDetails from './AuthorDetails';
 import httpGet from '../../http-service/httpGet';
-import Author from '../../models/author.model';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 export default function AuthorsList() {
   const { state, dispatch } = useContext(StoreContext);
@@ -15,15 +15,12 @@ export default function AuthorsList() {
 
   useEffect(() => {
     const url = `${baseUrl}/authors`;
-    const actionCreator = (authors: Author[]) => (
-      { type: 'ADD_AUTHORS', payload: authors }
-    );
 
     httpGet(url, setIsFetching)
-      .then((authors) => dispatch(actionCreator(authors)))
+      .then((authors) => dispatch(actionCreators.authors.addCollection(authors)))
       .catch((err) => setError(err.message));
 
-    return () => dispatch(actionCreator([]));
+    return () => dispatch(actionCreators.authors.addCollection([]));
   }, [dispatch]);
 
   return (

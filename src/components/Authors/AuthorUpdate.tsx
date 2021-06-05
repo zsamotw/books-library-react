@@ -6,6 +6,7 @@ import Author from '../../models/author.model';
 import httpPut from '../../http-service/httpPut';
 import { StoreContext } from '../Store';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 type AuthorUpdateProps = {
   author: Author
@@ -23,13 +24,10 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
     setError('');
 
     const url = `${baseUrl}/authors/${author.id}`;
-    const actionCreatorUpdate = (authorToUpdate: Author) => (
-      { type: 'UPDATE_AUTHOR', payload: authorToUpdate }
-    );
     const body = { firstName, lastName };
 
     httpPut(url, body, setIsUpdating)
-      .then((data) => dispatch(actionCreatorUpdate(data)))
+      .then((data) => dispatch(actionCreators.authors.update(data)))
       .catch((err) => setError(err.message));
   }
 

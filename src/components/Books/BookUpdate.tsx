@@ -8,6 +8,7 @@ import Book from '../../models/book.model';
 import BookForm from './BookForm';
 import httpGet from '../../http-service/httpGet';
 import httpPut from '../../http-service/httpPut';
+import { actionCreators } from '../Store/action.creators';
 
 type BookProps = {
   id: string
@@ -40,13 +41,10 @@ function BookUpdate() {
   const handleUpdate = (bookToUpdate: Book) => {
     setError('');
     const url = `${baseUrl}/books/${book.id}`;
-    const actionCreatorUpdate = (updatedBook: Book) => (
-      { type: 'UPDATE_BOOK', payload: updatedBook }
-    );
 
     httpPut(url, bookToUpdate, setIsCreating)
       .then((author) => {
-        dispatch(actionCreatorUpdate(author));
+        dispatch(actionCreators.books.update(author));
         history.push('/books');
       })
       .catch((err) => setError(err.message));

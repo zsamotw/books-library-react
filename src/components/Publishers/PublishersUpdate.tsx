@@ -6,6 +6,7 @@ import httpPut from '../../http-service/httpPut';
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 type PublisherUpdateProps = {
   publisher: Publisher
@@ -25,13 +26,10 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
     setError('');
 
     const url = `${baseUrl}/publishers/${publisher.id}`;
-    const actionCreatorUpdate = (publisherToUpdate: Publisher) => (
-      { type: 'UPDATE_PUBLISHER', payload: publisherToUpdate }
-    );
-
     const body = { name, establishmentYear };
+
     httpPut(url, body, setIsUpdating)
-      .then((data) => dispatch(actionCreatorUpdate(data)))
+      .then((data) => dispatch(actionCreators.publishers.update(data)))
       .catch((err) => setError(err.message));
   }
 

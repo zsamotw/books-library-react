@@ -6,6 +6,7 @@ import httpDelete from '../../http-service/httpDelete';
 import Author from '../../models/author.model';
 import { StoreContext } from '../Store';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 type AuthorDeleteProps = {
   author: Author
@@ -22,12 +23,9 @@ function AuthorDelete({ author }: AuthorDeleteProps) {
     setError('');
 
     const url = `${baseUrl}/authors/${author.id}`;
-    const actionCreatorDelete = (authorToDelete: Author) => (
-      { type: 'DELETE_AUTHOR', payload: authorToDelete }
-    );
 
     httpDelete(url, setIsDeleting)
-      .then((data) => dispatch(actionCreatorDelete(data)))
+      .then((data) => dispatch(actionCreators.authors.delete(data)))
       .catch((err) => setError(err.message));
 
     setShowDeleteDialog(false);

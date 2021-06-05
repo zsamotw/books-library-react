@@ -4,9 +4,9 @@ import {
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
 import httpGet from '../../http-service/httpGet';
-import Publisher from '../../models/publisher.model';
 import PublisherDetails from './PublishersDetails';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 export default function PublishersList() {
   const { state, dispatch } = useContext(StoreContext);
@@ -15,15 +15,12 @@ export default function PublishersList() {
 
   useEffect(() => {
     const url = `${baseUrl}/publishers`;
-    const actionCreator = (publishers: Publisher[]) => (
-      { type: 'ADD_PUBLISHERS', payload: publishers }
-    );
 
     httpGet(url, setIsFetching)
-      .then((publishers) => dispatch(actionCreator(publishers)))
+      .then((publishers) => dispatch(actionCreators.publishers.addCollection(publishers)))
       .catch((err) => setError(err.message));
 
-    return () => dispatch(actionCreator([]));
+    return () => dispatch(actionCreators.publishers.addCollection([]));
   }, [dispatch]);
 
   return (

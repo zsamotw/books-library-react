@@ -8,6 +8,7 @@ import BookDetails from './BookDetails';
 import useAuthors from '../../hooks/useAuthors';
 import usePublishers from '../../hooks/usePublishers';
 import useBooks from '../../hooks/useBooks';
+import { actionCreators } from '../Store/action.creators';
 
 function BooksList() {
   const { state, dispatch } = useContext(StoreContext);
@@ -17,9 +18,6 @@ function BooksList() {
   const [books, isFetchingBooks, booksError] = useBooks();
 
   useEffect(() => {
-    const actionCreatorAdd = (booksToAdd: Book[]) => (
-      { type: 'ADD_BOOKS', payload: booksToAdd }
-    );
     const booksList = Object.values(books) as Book[];
     const fullDataBooks = booksList.map((book: Book) => {
       const publisher = publishers[String(book.publisherId)];
@@ -27,9 +25,9 @@ function BooksList() {
       return { ...book, author, publisher };
     });
 
-    dispatch(actionCreatorAdd(fullDataBooks));
+    dispatch(actionCreators.books.addCollection(fullDataBooks));
 
-    return () => dispatch(actionCreatorAdd([]));
+    return () => dispatch(actionCreators.books.addCollection([]));
   }, [dispatch, books, publishers, authors]);
 
   return (

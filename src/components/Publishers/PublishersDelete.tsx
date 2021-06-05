@@ -6,6 +6,7 @@ import httpDelete from '../../http-service/httpDelete';
 import { StoreContext } from '../Store';
 import Publisher from '../../models/publisher.model';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 type PublisherDeleteProps = {
   publisher: Publisher
@@ -22,12 +23,9 @@ function PublisherDelete({ publisher }: PublisherDeleteProps) {
     setError('');
 
     const url = `${baseUrl}/publishers/${publisher.id}`;
-    const actionCreatorDelete = (publisherToDelete: Publisher) => (
-      { type: 'DELETE_PUBLISHER', payload: publisherToDelete }
-    );
 
     httpDelete(url, setIsDeleting)
-      .then((data) => dispatch(actionCreatorDelete(data)))
+      .then((data) => dispatch(actionCreators.publishers.delete(data)))
       .catch((err) => setError(err.message));
     setShowDeleteDialog(false);
   }

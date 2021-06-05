@@ -6,6 +6,7 @@ import { StoreContext } from '../Store';
 import baseUrl from '../../http-service/base-url';
 import httpDelete from '../../http-service/httpDelete';
 import Book from '../../models/book.model';
+import { actionCreators } from '../Store/action.creators';
 
 type BookDeleteProps = {
   book: Book
@@ -22,12 +23,9 @@ function BookDelete({ book }: BookDeleteProps) {
     setError('');
 
     const url = `${baseUrl}/books/${book.id}`;
-    const actionCreatorDelete = (bookToDelete: Book) => (
-      { type: 'DELETE_BOOK', payload: bookToDelete }
-    );
 
     httpDelete(url, setIsDeleting)
-      .then((data) => dispatch(actionCreatorDelete(data)))
+      .then((data) => dispatch(actionCreators.books.delete(data)))
       .catch((err) => setError(err.message));
 
     setShowDeleteDialog(false);

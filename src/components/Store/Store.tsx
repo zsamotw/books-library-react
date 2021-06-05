@@ -1,110 +1,13 @@
 import React, { ReactNode, useReducer } from 'react';
-import AppStore from '../../models/store.model';
 import { StoreContext } from './store.context';
-import Author from '../../models/author.model';
-import Publisher from '../../models/publisher.model';
-import Book from '../../models/book.model';
+import { appReducers } from './reducers';
+import { initialState } from './initial-state';
 
 type StoreProps = {
     children: ReactNode
 }
 
-const initialState: AppStore = {
-  authors: [],
-  publishers: [],
-  books: [],
-};
-
 function Store({ children }: StoreProps) {
-  function appReducers(state: AppStore, action: any): AppStore {
-    switch (action.type) {
-      case ('ADD_AUTHORS'): {
-        const authors = Object.values(action.payload) as Author[];
-        return { ...state, authors };
-      }
-      case ('ADD_AUTHOR'):
-        return {
-          ...state,
-          authors: [...state.authors, action.payload],
-        };
-      case ('UPDATE_AUTHOR'):
-        return {
-          ...state,
-          authors: state.authors.reduce((result: Author[], author) => {
-            if (author.id === action.payload.id) {
-              return [...result, action.payload];
-            }
-            return [...result, author];
-          }, []),
-        };
-      case ('DELETE_AUTHOR'):
-        return {
-          ...state,
-          authors: state
-            .authors
-            .filter((author) => author.id !== action.payload.id),
-        };
-      case ('ADD_PUBLISHERS'): {
-        const publishers = Object.values(action.payload) as Publisher[];
-        return { ...state, publishers };
-      }
-      case ('ADD_PUBLISHER'):
-        return {
-          ...state,
-          publishers: [...state.publishers, action.payload],
-        };
-      case ('UPDATE_PUBLISHER'):
-        return {
-          ...state,
-          publishers: state
-            .publishers
-            .reduce((result: Publisher[], publisher) => {
-              if (publisher.id === action.payload.id) {
-                return [...result, action.payload];
-              }
-              return [...result, publisher];
-            }, []),
-        };
-      case ('DELETE_PUBLISHER'):
-        return {
-          ...state,
-          publishers: state
-            .publishers
-            .filter((publisher) => publisher.id !== action.payload.id),
-        };
-      case ('ADD_BOOKS'): {
-        const books = Object.values(action.payload) as Book[];
-        return { ...state, books };
-      }
-      case ('ADD_BOOK'):
-        return {
-          ...state,
-          books: [...state.books, action.payload],
-        };
-      case ('UPDATE_BOOK'):
-        return {
-          ...state,
-          books: state
-            .books
-            .reduce((result: Book[], book) => {
-              if (book.id === action.payload.id) {
-                return [...result, action.payload];
-              }
-              return [...result, book];
-            }, []),
-        };
-      case ('DELETE_BOOK'):
-        return {
-          ...state,
-          books: state
-            .books
-            .filter((book) => book.id !== action.payload.id),
-        };
-      default:
-        return state;
-    }
-  }
-
   const [state, dispatch] = useReducer(appReducers, initialState);
 
   return (

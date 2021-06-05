@@ -7,6 +7,7 @@ import Book from '../../models/book.model';
 import { StoreContext } from '../Store';
 import httpPost from '../../http-service/httpPost';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 const Nav = styled.div`
   display: flex;
@@ -24,13 +25,10 @@ function BookCreate() {
     setError('');
 
     const url = `${baseUrl}/books`;
-    const actionCreatorAdd = (bookToAdd: Book) => (
-      { type: 'ADD_BOOK', payload: bookToAdd }
-    );
 
     httpPost(url, book, setIsCreating)
       .then((author) => {
-        dispatch(actionCreatorAdd(author));
+        dispatch(actionCreators.books.add(author));
         history.push('/books');
       })
       .catch((err) => setError(err.message));

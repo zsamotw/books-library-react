@@ -3,9 +3,9 @@ import {
   Alert, Button, Col, Form, Row, Spinner,
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
-import Publisher from '../../models/publisher.model';
 import httpPost from '../../http-service/httpPost';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 function PublisherCreate() {
   const { dispatch } = useContext(StoreContext);
@@ -21,13 +21,10 @@ function PublisherCreate() {
     setError('');
 
     const url = `${baseUrl}/publishers`;
-    const actionCreatorAdd = (publisherToToAdd: Publisher) => (
-      { type: 'ADD_PUBLISHER', payload: publisherToToAdd }
-    );
-
     const body = { name, establishmentYear };
+
     httpPost(url, body, setIsCreating)
-      .then((publisher) => dispatch(actionCreatorAdd(publisher)))
+      .then((publisher) => dispatch(actionCreators.publishers.add(publisher)))
       .catch((err) => setError(err.message));
 
     setName('');

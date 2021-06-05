@@ -3,9 +3,9 @@ import {
   Alert, Button, Col, Form, Row, Spinner,
 } from 'react-bootstrap';
 import { StoreContext } from '../Store';
-import Author from '../../models/author.model';
 import httpPost from '../../http-service/httpPost';
 import baseUrl from '../../http-service/base-url';
+import { actionCreators } from '../Store/action.creators';
 
 function AuthorCreate() {
   const [firstName, setFirstName] = useState('');
@@ -18,13 +18,10 @@ function AuthorCreate() {
     setError('');
 
     const url = `${baseUrl}/authors`;
-    const actionCreatorAdd = (authorToAdd: Author) => (
-      { type: 'ADD_AUTHOR', payload: authorToAdd }
-    );
     const body = { firstName, lastName };
 
     httpPost(url, body, setIsCreating)
-      .then((author) => dispatch(actionCreatorAdd(author)))
+      .then((author) => dispatch(actionCreators.authors.add(author)))
       .catch((err) => setError(err.message));
     setFirstName('');
     setLastName('');
