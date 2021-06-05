@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Alert, Button, Form, Spinner,
 } from 'react-bootstrap';
@@ -43,10 +43,10 @@ function BookForm({
     setPublisherOptions(opts);
   }, [publishers]);
 
-  function handleSubmit(event: any) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     event.stopPropagation();
-    if (event.currentTarget.checkValidity() === false) {
+    if (!event.currentTarget.checkValidity()) {
       setValidated(true);
       return;
     }
@@ -63,21 +63,38 @@ function BookForm({
             <Form onSubmit={handleSubmit} noValidate validated={validated}>
               <Form.Group controlId="title">
                 <Form.Label> Book title</Form.Label>
-                <Form.Control type="text" required placeholder="Type book title..." value={book.title} onChange={(event) => setBook({ ...book, title: event.target.value })} />
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="Type book title..."
+                  value={book.title}
+                  onChange={(event) => setBook({ ...book, title: event.target.value })}
+                />
                 <Form.Control.Feedback type="invalid">
                   Please provide title.
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="isbn">
                 <Form.Label> Book isbn</Form.Label>
-                <Form.Control type="text" required placeholder="Type book isbn..." value={book.isbn} onChange={(event) => setBook({ ...book, isbn: event.target.value })} />
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="Type book isbn..."
+                  value={book.isbn}
+                  onChange={(event) => setBook({ ...book, isbn: event.target.value })}
+                />
                 <Form.Control.Feedback type="invalid">
                   Please provide isbn.
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="author">
                 <Form.Label>Book author</Form.Label>
-                <Form.Control required as="select" value={book.authorId} onChange={(event) => setBook({ ...book, authorId: Number(event.target.value) })}>
+                <Form.Control
+                  required
+                  as="select"
+                  value={book.authorId}
+                  onChange={(event) => setBook({ ...book, authorId: Number(event.target.value) })}
+                >
                   <option value="">Select author...</option>
                   {authorOptions.map((author: Author) => (
                     <option key={author.id} value={author.id}>{`${author.firstName} ${author.lastName}`}</option>
@@ -89,7 +106,12 @@ function BookForm({
               </Form.Group>
               <Form.Group controlId="publisher">
                 <Form.Label>Book publisher</Form.Label>
-                <Form.Control required as="select" value={book.publisherId} onChange={(event) => setBook({ ...book, publisherId: Number(event.target.value) })}>
+                <Form.Control
+                  required
+                  as="select"
+                  value={book.publisherId}
+                  onChange={(event) => setBook({ ...book, publisherId: Number(event.target.value) })}
+                >
                   <option value="">Select publisher...</option>
                   {publisherOptions.map((publisher: Publisher) => (
                     <option key={publisher.id} value={publisher.id}>{publisher.name}</option>
