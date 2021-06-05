@@ -7,6 +7,7 @@ function Authors() {
   return (
     <Container>
       <PublisherCreate />
+      <h1>Publishers</h1>
       <PublishersList />
     </Container>
   );
