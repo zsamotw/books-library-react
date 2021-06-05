@@ -7,6 +7,7 @@ import Authors from '../Authors/Authors';
 import Publishers from '../Publishers/Publishers';
 import BookCreate from '../Books/BookCreate';
 import BookUpdate from '../Books/BookUpdate';
+import NoMatch from '../NoMatch';
 
 export default function RootComponent() {
   return (
@@ -31,6 +32,9 @@ export default function RootComponent() {
           </Route>
           <Route exact path="/publishers">
             <Publishers />
+          </Route>
+          <Route path="*">
+            <NoMatch />
           </Route>
         </Switch>
       </main>
