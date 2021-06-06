@@ -4,10 +4,10 @@ import Publisher from './publisher.model';
 export default interface Book {
     title: string;
     isbn: string;
-    publishmentYear: number
-    authorId: number;
+    publishmentYear: number | string;
+    authorId: number | string;
     author?: Author;
-    publisherId: number;
+    publisherId: number | string;
     publisher?: Publisher;
     id: number;
 };
