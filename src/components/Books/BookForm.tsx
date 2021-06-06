@@ -19,17 +19,20 @@ type BookFormProps = {
 function BookForm({
   saveBook, bookToUpdate, error, isSaving, setError,
 }: BookFormProps) {
+  const initialBook = {
+    title: '', isbn: '', authorId: '', publisherId: '', publishmentYear: '',
+  };
   const [authorOptions, setAuthorOptions] = useState<Author[]>([]);
   const [publisherOptions, setPublisherOptions] = useState<Publisher[]>([]);
-  const [book, setBook] = useState<Book>({} as Book);
+  const [book, setBook] = useState<Book>(initialBook as Book);
   const [validated, setValidated] = useState(false);
   const [authors, isFetchingAuthors] = useAuthors();
   const [publishers, isFetchingPublishers] = usePublishers();
-  const yearOptions = [...Array(2022).keys()].reverse();
+  const yearOptions = [...Array(new Date().getFullYear() + 1).keys()].reverse();
 
   useEffect(() => {
     if (bookToUpdate) {
-      setBook(bookToUpdate);
+      setBook(bookToUpdate as Book);
     }
   }, [bookToUpdate]);
 
@@ -51,7 +54,7 @@ function BookForm({
       return;
     }
     saveBook(book);
-    setValidated(true);
+    setValidated(false);
   }
 
   return (
@@ -78,6 +81,7 @@ function BookForm({
                 <Form.Label> Book isbn</Form.Label>
                 <Form.Control
                   type="text"
+                  pattern="^\d{13}$"
                   required
                   placeholder="Type book isbn..."
                   value={book.isbn}
