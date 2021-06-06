@@ -53,7 +53,8 @@ function BookForm({
       setValidated(true);
       return;
     }
-    saveBook(book);
+    const isbn = book.isbn.replace(/-/g, '');
+    saveBook({ ...book, isbn });
     setValidated(false);
   }
 
@@ -81,14 +82,14 @@ function BookForm({
                 <Form.Label> Book isbn</Form.Label>
                 <Form.Control
                   type="text"
-                  pattern="^\d{13}$"
                   required
+                  pattern="(^\d{3}-\d{1}-\d{5}-\d{3}-\d{1}$)|(^\d{13}$)"
                   placeholder="Type book isbn..."
                   value={book.isbn}
                   onChange={(event) => setBook({ ...book, isbn: event.target.value })}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please provide isbn.
+                  Please provide valid isbn.
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="author">
