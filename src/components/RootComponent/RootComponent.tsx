@@ -1,6 +1,5 @@
 import React from 'react';
-import Switch from 'react-bootstrap/Switch';
-import { Redirect, Route } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import NavBar from '../NavBar';
 import Books from '../Books';
 import Authors from '../Authors/Authors';
