@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import {
   Alert, Button, Form, Spinner,
 } from 'react-bootstrap';
@@ -17,24 +17,33 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
   const [lastName, setLastName] = useState(author.lastName);
   const [error, setError] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
+  const [validated, setValidated] = useState(false);
 
   const { dispatch } = useContext(StoreContext);
 
-  function handleSave() {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    event.stopPropagation();
     setError('');
+
+    if (!event.currentTarget.checkValidity()) {
+      setValidated(true);
+      return;
+    }
 
     const url = `${baseUrl}/authors/${author.id}`;
     const body = { firstName, lastName };
 
     httpPut(url, body, setIsUpdating)
       .then((data) => dispatch(actionCreators.authors.update(data)))
-      .catch((err) => setError(err.message));
+      .catch((err) => setError(err.message))
+      .finally(() => setValidated(false));
   }
 
   return (
     <div>
 
-      <Form>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group controlId="author-first-name">
           <Form.Label>First name</Form.Label>
           <Form.Control
@@ -44,7 +53,11 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
             onChange={
               (event) => setFirstName(event.target.value)
             }
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please provide first name.
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="author-last-name">
@@ -56,10 +69,14 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
             onChange={
               (event) => setLastName(event.target.value)
             }
+            required
           />
+          <Form.Control.Feedback type="invalid">
+            Please provide last name.
+          </Form.Control.Feedback>
         </Form.Group>
 
-        <Button variant="primary" onClick={handleSave}>
+        <Button type="submit" variant="primary">
           {
             isUpdating
             && (

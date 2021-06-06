@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import {
   Alert, Button, Col, Form, Row, Spinner,
 } from 'react-bootstrap';
@@ -14,34 +14,48 @@ function PublisherCreate() {
   const [establishmentYear, setEstablishmentYear] = useState<number | string>('');
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
+  const [validated, setValidated] = useState(false);
 
-  const yearOptions = [...Array(2022).keys()].reverse();
+  const yearOptions = [...Array(new Date().getFullYear() + 1).keys()].reverse();
 
-  const handleCreate = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     setError('');
+
+    if (!event.currentTarget.checkValidity()) {
+      setValidated(true);
+      return;
+    }
 
     const url = `${baseUrl}/publishers`;
     const body = { name, establishmentYear };
 
     httpPost(url, body, setIsCreating)
       .then((publisher) => dispatch(actionCreators.publishers.add(publisher)))
-      .catch((err) => setError(err.message));
-
-    setName('');
-    setEstablishmentYear('');
+      .catch((err) => setError(err.message))
+      .finally(() => {
+        setName('');
+        setEstablishmentYear('');
+        setValidated(false);
+      });
   };
 
   return (
     <Row className="my-4">
       <Col>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Row className="mb-3">
             <Col>
               <Form.Control
                 placeholder="Type name..."
                 value={name}
                 onChange={(event) => setName(event.target.value)}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide name.
+              </Form.Control.Feedback>
             </Col>
             <Col>
               <Form.Control
@@ -49,15 +63,19 @@ function PublisherCreate() {
                 as="select"
                 value={establishmentYear}
                 onChange={(event) => setEstablishmentYear(Number(event.target.value))}
+                required
               >
                 <option value="">Select establishmentYear year...</option>
                 {yearOptions.map((option) => (
                   <option key={option} value={option}>{option}</option>
                 ))}
               </Form.Control>
+              <Form.Control.Feedback type="invalid">
+                Please provide year.
+              </Form.Control.Feedback>
             </Col>
             <Col>
-              <Button variant="outline-success" onClick={handleCreate}>
+              <Button type="submit" variant="outline-success">
 
                 {
                   isCreating

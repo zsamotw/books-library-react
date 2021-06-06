@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import {
   Alert, Button, Col, Form, Row, Spinner,
 } from 'react-bootstrap';
@@ -10,44 +10,64 @@ import { actionCreators } from '../Store/action.creators';
 function AuthorCreate() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const { dispatch } = useContext(StoreContext);
   const [error, setError] = useState('');
   const [isCreating, setIsCreating] = useState(false);
+  const [validated, setValidated] = useState(false);
 
-  const handleCreate = () => {
+  const { dispatch } = useContext(StoreContext);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     setError('');
+
+    if (!event.currentTarget.checkValidity()) {
+      setValidated(true);
+      return;
+    }
 
     const url = `${baseUrl}/authors`;
     const body = { firstName, lastName };
 
     httpPost(url, body, setIsCreating)
       .then((author) => dispatch(actionCreators.authors.add(author)))
-      .catch((err) => setError(err.message));
-    setFirstName('');
-    setLastName('');
+      .catch((err) => setError(err.message))
+      .finally(() => {
+        setFirstName('');
+        setLastName('');
+        setValidated(false);
+      });
   };
 
   return (
     <Row className="my-4">
       <Col>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Row className="mb-3">
             <Col>
               <Form.Control
                 placeholder="Type first name..."
                 value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide first name.
+              </Form.Control.Feedback>
             </Col>
             <Col>
               <Form.Control
                 placeholder="Type last name..."
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide last name.
+              </Form.Control.Feedback>
             </Col>
             <Col>
-              <Button variant="outline-success" onClick={handleCreate}>
+              <Button type="submit" variant="outline-success">
 
                 {
               isCreating
