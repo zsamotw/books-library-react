@@ -15,7 +15,7 @@ function BookDetails({ book }: BookDetailsProps) {
         <Card.Subtitle className="mb-2 text-muted" style={{ fontSize: '12px' }}>{book.isbn}</Card.Subtitle>
         <Card.Text>{`${book.author?.firstName} ${book.author?.lastName}`}</Card.Text>
         <Card.Text>
-          <span>By </span>
+          <span>Published by: </span>
           {book.publisher?.name}
           <span> in </span>
           {book.publishmentYear}
