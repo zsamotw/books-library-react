@@ -41,43 +41,41 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
   }
 
   return (
-    <div>
-
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Form.Group controlId="author-first-name">
-          <Form.Label>First name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Type first name..."
-            value={firstName}
-            onChange={
+    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form.Group controlId="author-first-name">
+        <Form.Label>First name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Type first name..."
+          value={firstName}
+          onChange={
               (event) => setFirstName(event.target.value)
             }
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide first name.
-          </Form.Control.Feedback>
-        </Form.Group>
+          required
+        />
+        <Form.Control.Feedback type="invalid">
+          Please provide first name.
+        </Form.Control.Feedback>
+      </Form.Group>
 
-        <Form.Group controlId="author-last-name">
-          <Form.Label>Last name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Type last name..."
-            value={lastName}
-            onChange={
+      <Form.Group controlId="author-last-name">
+        <Form.Label>Last name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Type last name..."
+          value={lastName}
+          onChange={
               (event) => setLastName(event.target.value)
             }
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide last name.
-          </Form.Control.Feedback>
-        </Form.Group>
+          required
+        />
+        <Form.Control.Feedback type="invalid">
+          Please provide last name.
+        </Form.Control.Feedback>
+      </Form.Group>
 
-        <Button type="submit" variant="primary">
-          {
+      <Button type="submit" variant="primary">
+        {
             isUpdating
             && (
               <Spinner
@@ -89,9 +87,9 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
               />
             )
           }
-          Save
-        </Button>
-        {error
+        Save
+      </Button>
+      {error
         && (
           <Alert
             variant="danger"
@@ -101,8 +99,7 @@ function AuthorUpdate({ author }: AuthorUpdateProps) {
             {error}
           </Alert>
         )}
-      </Form>
-    </div>
+    </Form>
   );
 }
 

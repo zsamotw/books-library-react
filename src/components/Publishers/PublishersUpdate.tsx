@@ -43,70 +43,68 @@ function PublisherUpdate({ publisher }: PublisherUpdateProps) {
   }
 
   return (
-    <div>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Form.Group controlId="author-first-name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Type first name..."
-            value={name}
-            onChange={
-              (event) => setName(event.target.value)
-            }
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide name.
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="establishment-year">
-          <Form.Label>Establishment year</Form.Label>
-          <Form.Control
-            placeholder="Type establishment year..."
-            as="select"
-            value={establishmentYear}
-            onChange={(event) => setEstablishmentYear(Number(event.target.value))}
-            required
-          >
-            <option value="">Select establishmentYear year...</option>
-            {yearOptions.map((option) => (
-              <option key={option} value={option}>{option}</option>
-            ))}
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">
-            Please provide year.
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Button type="submit" variant="primary">
-          {
-            isUpdating
-            && (
-              <Spinner
-                as="span"
-                animation="grow"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />
-            )
+    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form.Group controlId="author-first-name">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Type first name..."
+          value={name}
+          onChange={
+            (event) => setName(event.target.value)
           }
-          Save
-        </Button>
-        {error
-        && (
-          <Alert
-            variant="danger"
-            onClick={() => setError('')}
-            dismissible
-          >
-            {error}
-          </Alert>
-        )}
-      </Form>
-    </div>
+          required
+        />
+        <Form.Control.Feedback type="invalid">
+          Please provide name.
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group controlId="establishment-year">
+        <Form.Label>Establishment year</Form.Label>
+        <Form.Control
+          placeholder="Type establishment year..."
+          as="select"
+          value={establishmentYear}
+          onChange={(event) => setEstablishmentYear(Number(event.target.value))}
+          required
+        >
+          <option value="">Select establishmentYear year...</option>
+          {yearOptions.map((option) => (
+            <option key={option} value={option}>{option}</option>
+          ))}
+        </Form.Control>
+        <Form.Control.Feedback type="invalid">
+          Please provide year.
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Button type="submit" variant="primary">
+        {
+          isUpdating
+          && (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )
+        }
+        Save
+      </Button>
+      {error
+      && (
+        <Alert
+          variant="danger"
+          onClick={() => setError('')}
+          dismissible
+        >
+          {error}
+        </Alert>
+      )}
+    </Form>
   );
 }
 
