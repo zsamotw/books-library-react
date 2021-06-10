@@ -9,7 +9,7 @@ import Publisher from '../../models/publisher.model';
 import Book from '../../models/book.model';
 
 type BookFormProps = {
-  saveBook: any,
+  saveBook: Function,
   bookToUpdate: Book | null,
   error: string,
   isSaving: boolean,
