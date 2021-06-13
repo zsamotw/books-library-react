@@ -34,8 +34,14 @@ export default function AuthorsList() {
                 <AuthorDetails author={author} key={author.id} />
               ))}
               {error
-                ?? (
-                  <Alert variant="danger">{error}</Alert>
+                && (
+                  <Alert
+                    variant="danger"
+                    onClick={() => setError('')}
+                    dismissible
+                  >
+                    {error}
+                  </Alert>
                 )}
             </Col>
           )
