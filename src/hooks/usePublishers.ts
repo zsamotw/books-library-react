@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import httpGet from '../http-service/httpGet';
 import baseUrl from '../http-service/base-url';
+import Publisher from '../models/publisher.model';
 
 const usePublishers = () => {
   const [publishers, setPublishers] = useState({} as any);
@@ -11,7 +12,7 @@ const usePublishers = () => {
 
   useEffect(() => {
     httpGet(url, setIsFetching)
-      .then((data) => setPublishers(data))
+      .then((data: {[key: number]: Publisher}) => setPublishers(data))
       .catch((err) => setError(err.message));
   }, [url]);
 

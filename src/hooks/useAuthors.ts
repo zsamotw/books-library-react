@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import httpGet from '../http-service/httpGet';
 import baseUrl from '../http-service/base-url';
+import Author from '../models/author.model';
 
 const useAuthors = () => {
   const [authors, setAuthors] = useState({} as any);
@@ -11,7 +12,7 @@ const useAuthors = () => {
 
   useEffect(() => {
     httpGet(url, setIsFetching)
-      .then((data) => setAuthors(data))
+      .then((data: {[key: string]: Author}) => setAuthors(data))
       .catch((err) => setError(err.message));
   }, [url]);
 

@@ -9,11 +9,12 @@ import useAuthors from '../../hooks/useAuthors';
 import usePublishers from '../../hooks/usePublishers';
 import useBooks from '../../hooks/useBooks';
 import { actionCreators } from '../Store/action.creators';
+import Author from '../../models/author.model';
 
 function BooksList() {
   const { state, dispatch } = useContext(StoreContext);
 
-  const [authors, isFetchingAuthors, authorsError] = useAuthors();
+  const [authors, isFetchingAuthors, authorsError] = useAuthors() as [{[key: string]: Author}, boolean, string];
   const [publishers, isFetchingPublishers, publishersError] = usePublishers();
   const [books, isFetchingBooks, booksError] = useBooks();
 

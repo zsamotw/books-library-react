@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import httpGet from '../http-service/httpGet';
 import baseUrl from '../http-service/base-url';
+import Book from '../models/book.model';
 
 const useBooks = () => {
   const [books, setBooks] = useState({});
@@ -11,7 +12,7 @@ const useBooks = () => {
 
   useEffect(() => {
     httpGet(url, setIsFetching)
-      .then((data) => setBooks(data))
+      .then((data:{[key: number]: Book}) => setBooks(data))
       .catch((err) => setError(err.message));
   }, [url]);
 
